@@ -10,6 +10,21 @@ void printf(char* str)
         VideoMemory[i] = (VideoMemory[i] & 0xFF00) | str[i];
 }
 
+namespace stkl
+{
+
+	class printkc 
+	{
+  		public:
+    		printkc() = default;
+    		printkc& operator<<(char* input) {
+      			printf(input);
+      			return *this;
+    		}
+	};
+
+	printkc printk;
+}
 //Call all class constructor
 //for global objects before
 //calling the kernel
@@ -26,7 +41,7 @@ extern "C" void callConstructors()
 
 extern "C" void kernelMain(void* multiboot_structure,uint32_t magicnumber)
 {
-printf("Hello World! Thomas rein the hero!");
+  stkl::printk << "Hello";
    while(1);	
 }
 
